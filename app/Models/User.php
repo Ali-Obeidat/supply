@@ -46,4 +46,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class, 'driver_id');
     }
+
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+        
+    }
 }

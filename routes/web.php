@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DriverController;
+use App\Http\Controllers\OrderController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +21,21 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('/dashboard')->group(function () {
+
+    Route::get('/', function () {
+        return view('dashboard.index');
+    });
+
+    Route::resource('/customers', CustomerController::class);
+    Route::resource('/admin', AdminController::class);
+    Route::resource('/drivers', DriverController::class);
+    Route::resource('/orders', OrderController::class);
+});
+
+
+
 
 Auth::routes();
 

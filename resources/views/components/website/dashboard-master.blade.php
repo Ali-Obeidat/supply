@@ -278,9 +278,9 @@
             </div>
             <div class="sidebar-menu-wrap">
                 <ul class="sidebar-menu toggle-menu list-items">
-                    <li class="page-active"><a href="admin-dashboard.html"><i class="la la-dashboard mr-2"></i>لوحة القيادة</a></li>
-                    <li><a href="admin-dashboard-booking.html"><i class="la la-shopping-cart mr-2 text-color"></i>الحجز</a></li>
-                    <li>
+                    <li class="{{ request()->is('dashboard') ? 'page-active' : '' }}"><a href="/dashboard"><i class="la la-dashboard mr-2 {{ request()->is('dashboard') ? '' : 'text-color' }}"></i>لوحة القيادة</a></li>
+                    <!-- <li><a href="admin-dashboard-booking.html"><i class="la la-shopping-cart mr-2 text-color"></i>الحجز</a></li> -->
+                    <!-- <li>
                         <span class="side-menu-icon toggle-menu-icon">
                             <i class="la la-angle-down"></i>
                         </span>
@@ -288,42 +288,48 @@
                         <ul class="toggle-drop-menu">
                             <li><a href="admin-dashboard-orders-details.html">تفاصيل الطلب</a></li>
                         </ul>
-                    </li>
-                    <li>
+                    </li> -->
+                    <li class="{{ request()->is('dashboard/admin*') ? 'page-active' : '' }}">
                         <span class="side-menu-icon toggle-menu-icon">
                             <i class="la la-angle-down"></i>
                         </span>
-                        <a href="admin-dashboard-travellers.html"><i class="la la-users mr-2 text-color-3"></i>مسافرين</a>
+                        <a href="{{route('admin.index')}}"><i class="la la-group mr-2 {{ request()->is('dashboard/admin*') ? '' : 'text-color-3' }} "></i>المشرفين</a>
                         <ul class="toggle-drop-menu">
-                            <li><a href="admin-dashboard-traveler-detail.html">تفاصيل المسافر</a></li>
+                            <li><a href="{{route('admin.index')}}">عرض جميع المشرفين</a></li>
+                            <li><a href="{{route('admin.create')}}">إضافة مشرف جديد</a></li>
                         </ul>
                     </li>
-                    <li><a href="admin-dashboard-visa.html"><i class="la la-plane mr-2 text-color-4"></i>نموذج الفيزا</a></li>
-                    <li><a href="admin-dashboard-reviews.html"><i class="la la-star mr-2 text-color-5"></i>المراجعات</a></li>
-                    <li><a href="admin-dashboard-wishlist.html"><i class="la la-heart mr-2 text-color-6"></i>قائمة الرغبات</a></li>
-                    <li><a href="admin-dashboard-travel-agents.html"><i class="la la-text-width mr-2 text-color-7"></i>وكلاء السفر</a></li>
-                    <li>
+                    <li class="{{ request()->is('dashboard/customers*') ? 'page-active' : '' }}">
                         <span class="side-menu-icon toggle-menu-icon">
                             <i class="la la-angle-down"></i>
                         </span>
-                        <a href="#"><i class="la la-area-chart mr-2 text-color-8"></i>المالية</a>
+                        <a href="{{route('customers.index')}}"><i class="la la-users mr-2 {{ request()->is('dashboard/customers*') ? '' : 'text-color-3' }} "></i>الزبائن</a>
                         <ul class="toggle-drop-menu">
-                            <li><a href="admin-invoice.html">فاتورة</a></li>
-                            <li><a href="admin-payments.html">المدفوعات</a></li>
-                            <li><a href="admin-currency-list.html">قائمة العملات</a></li>
-                            <li><a href="admin-dashboard-subscribers.html">مشتركين</a></li>
+                            <li><a href="{{route('customers.index')}}">عرض جميع الزبائن</a></li>
+                            <li><a href="{{route('customers.create')}}">إضافة زبون جديد</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li class="{{ request()->is('dashboard/drivers*') ? 'page-active' : '' }}">
                         <span class="side-menu-icon toggle-menu-icon">
                             <i class="la la-angle-down"></i>
                         </span>
-                        <a href="#"><i class="la la-map-signs mr-2 text-color-9"></i>المواقع</a>
+                        <a href="{{route('drivers.index')}}"><i class="la la-car mr-2 {{ request()->is('dashboard/drivers*') ? '' : 'text-color-4' }} "></i>السائقون</a>
                         <ul class="toggle-drop-menu">
-                            <li><a href="admin-countries.html">بلدان</a></li>
-                            <li><a href="admin-airlines.html">الخطوط الجوية</a></li>
+                            <li><a href="{{route('drivers.index')}}">عرض جميع السائقون</a></li>
+                            <li><a href="{{route('drivers.create')}}">إضافة سائق جديد</a></li>
                         </ul>
                     </li>
+                    <li class="{{ request()->is('dashboard/orders*') ? 'page-active' : '' }}">
+                        <span class="side-menu-icon toggle-menu-icon">
+                            <i class="la la-angle-down"></i>
+                        </span>
+                        <a href="{{route('orders.index')}}"><i class="la la-list  mr-2 {{ request()->is('dashboard/orders*') ? '' : 'text-color-10' }} "></i>الطلبات</a>
+                        <ul class="toggle-drop-menu">
+                            <li><a href="{{route('drivers.index')}}">عرض جميع الطلبات</a></li>
+                            <li><a href="admin-dashboard-traveler-detail.html">إضافة طلب جديد</a></li>
+                        </ul>
+                    </li>
+  
                     <li><a href="admin-dashboard-settings.html"><i class="la la-cog mr-2 text-color-10"></i>الإعدادات</a></li>
                     <li><a href="index.html"><i class="la la-power-off mr-2 text-color-11"></i>تسجيل خروج</a></li>
                 </ul>
@@ -550,7 +556,7 @@
             </div><!-- end container-fluid -->
         </div><!-- end dashboard-nav -->
         <div class="dashboard-content-wrap">
-          @yield('content')
+            @yield('content')
         </div><!-- end dashboard-content-wrap -->
     </section><!-- end dashboard-area -->
     <!-- ================================
@@ -576,9 +582,7 @@
     <script src="{{asset('js/jquery.fancybox.min.js')}}"></script>
     <script src="{{asset('js/jquery.countTo.min.js')}}"></script>
     <script src="{{asset('js/animated-headline.js')}}"></script>
-    <!-- <script src="{{asset('js/chart.js')}}"></script> -->
-    <!-- <script src="{{asset('js/chart.extension.js')}}"></script> -->
-    <!-- <script src="{{asset('js/bar-chart.js')}}"></script> -->
+
     <script src="{{asset('js/jquery.filer.min.js')}}"></script>
     <script src="{{asset('js/jquery.ripples-min.js')}}"></script>
     <script src="{{asset('js/quantity-input.js')}}"></script>
